@@ -1,4 +1,4 @@
-module grid-walker
+module min-max-ttt
 
 go 1.22.4
 

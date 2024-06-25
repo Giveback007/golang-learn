@@ -1,0 +1,18 @@
+import (
+	"fmt"
+	"os/exec"
+	"syscall"
+)
+
+func ChromeAppStart(url string) *exec.Cmd {
+	run := fmt.Sprintf("start chrome --app=%s", url)
+	cmd := exec.Command("cmd", "/C", run)
+	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
+	err := cmd.Start()
+	if err != nil {
+		fmt.Println("Error starting Chrome:", err)
+		return nil
+	}
+
+	return cmd
+}

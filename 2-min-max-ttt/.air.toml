@@ -5,11 +5,14 @@ tmp_dir = "tmp"
 [build]
   args_bin = []
   bin = "tmp\\main.exe"
+
   cmd = "go build -o ./tmp/main.exe ."
+  # cmd = "go build -o ./tmp/main.exe . && go test ./..."
+  # exclude_regex = ["_test.go"]
+
   delay = 1000
   exclude_dir = ["assets", "tmp", "vendor", "testdata"]
   exclude_file = []
-  exclude_regex = ["_test.go"]
   exclude_unchanged = false
   follow_symlink = false
   full_bin = ""
@@ -35,15 +38,15 @@ tmp_dir = "tmp"
   watcher = "cyan"
 
 [log]
-  main_only = false
-  time = false
+  main_only = true
+  time = true
 
 [misc]
   clean_on_exit = false
 
 [proxy]
-  app_port = 0
   enabled = false
+  app_port = 0
   proxy_port = 0
 
 [screen]

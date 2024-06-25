@@ -51,6 +51,7 @@ func drawLine(line [width]int) {
 			fmt.Print("-")
 		}
 	}
+
 	prtLn()
 }
 
