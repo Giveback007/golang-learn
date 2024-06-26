@@ -1,0 +1,48 @@
+{{ block "index" . }}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go-HTMX</title>
+    <link rel="stylesheet" href="css/styles.css">
+
+    <script src="https://unpkg.com/htmx.org@2.0.0"
+        integrity="sha384-wS5l5IKJBvK6sPTKa2WZ1js3d947pvWXbPJ1OmWfEuxLgeHcEbjUUA5i9V5ZkpCw"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div id="count">
+        {{ template "count" . }}
+    </div>
+    <button hx-target="#count" hx-post="/count">Count</button>
+
+
+    <script>
+        const evtLstn = document.addEventListener;
+
+        evtLstn('htmx:beforeProcessNode', (evt) => {
+            const { elt } = evt?.detail || {};
+            if (elt && elt.getAttribute('hx-trigger') === null) {
+                elt.setAttribute('hx-trigger', 'mousedown');
+            }
+        });
+
+        evtLstn("htmx:configRequest", (evt) => {
+            const { button, type } = evt?.detail?.triggeringEvent || {};
+            if (type === "mousedown" && button === 2) {
+                evt.preventDefault()
+            }
+        });
+    </script>
+</body>
+
+</html>
+{{ end }}
+
+{{ block "count" . }}
+Count {{ .Count }}
+{{ end }}
